@@ -18,6 +18,12 @@ curl -X GET localhost:8080/ping
 curl -X POST localhost:8080/list -d '{"Title": "First_List"}'
 ```
 
+### Dependencies
+```
+go get <dependency>
+go mod vendor
+```
+
 ### TODO
 1. Implement delete item functionality
 2. Implement delete list functionality
