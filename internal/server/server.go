@@ -32,6 +32,8 @@ func (s *Server) SetupRoutes() *gin.Engine {
 	r.GET("/list/:title", s.GetList)
 	r.POST("/list", s.PostList)
 	r.POST("/list/:title", s.PostItem)
+	r.DELETE("/list/:title", s.DeleteList)
+	r.DELETE("/list/:title/:item", s.DeleteItem)
 	// todo: add more paths
 
 	return r
@@ -73,7 +75,11 @@ func (s *Server) PostList(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
-// TODO: Add delete list
+func (s *Server) DeleteList(c *gin.Context) {
+	title := c.Param("title")
+	s.store.Delete(title)
+	c.Status(http.StatusOK)
+}
 
 type PostItemRequest struct {
 	Title       string `json:"title"`
@@ -106,4 +112,18 @@ func (s *Server) PostItem(c *gin.Context) {
 	c.JSON(http.StatusOK, l)
 }
 
-// TODO: add delete item
+func (s *Server) DeleteItem(c *gin.Context) {
+	title := c.Param("title")
+	l, err := s.store.Get(title)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, ErrorResponse{Error: err.Error()})
+		return
+	}
+
+	item := c.Param("item")
+
+	delete(l.Items, item)
+
+	s.store.Upsert(l)
+	c.JSON(http.StatusOK, l)
+}
