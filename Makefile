@@ -7,4 +7,12 @@ build:
 
 .PHONY: clean
 clean:
-	rm todo-list
+	-rm todo-list
+
+.PHONY: image
+image:
+	docker build -t $(NAMESPACE)/$(APPNAME) .
+
+.PHONY: docker-run
+docker-run:
+	docker run -p 8080:8080 $(NAMESPACE)/$(APPNAME)
