@@ -29,7 +29,8 @@ go mod vendor
 2. Implement delete list functionality
 3. Implement timed lists where a list will log something when it's
 time is up
-4. Unit tests
+4. Implement delete functionality in the mysql store
+5. Unit tests
 
 ### Git
 ```
@@ -47,3 +48,25 @@ Create image:
 
 Run container:
 `make run-docker` or `docker run -p 8080:8080 justinhbaker3/todo-list`
+
+### MYSQL
+Build image:
+`make build-mysql`
+
+Start container:
+`make run-mysql`
+
+Start a bash shell in the mysql container:
+`docker exec -it todo-list-mysql bash`
+
+Alternatively, install mysql and run
+`mysql --host=127.0.0.1 -u root --password=pass --protocol=TCP` to connect from outside the container
+
+From within the mysql container (enter `pass` when prompted):
+`mysql --user root --password=pass`
+
+Test commands to run:
+
+`use main;`
+`show tables;`
+`describe lists;`

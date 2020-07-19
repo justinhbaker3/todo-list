@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/justinhbaker3/todo-list/internal/memorystore"
+	"github.com/justinhbaker3/todo-list/internal/sqlstore"
+
 	"github.com/justinhbaker3/todo-list/internal/server"
 )
 
@@ -16,13 +17,17 @@ func main() {
 		port = "8080"
 	}
 
-	store := memorystore.New()
+	//store := memorystore.New()
+	store, err := sqlstore.New()
+	if err != nil {
+		panic(err)
+	}
 	srv := server.New(store)
 
 	router := srv.SetupRoutes()
 
 	addr := fmt.Sprintf(":%s", port)
-	err := router.Run(addr)
+	err = router.Run(addr)
 	if err != nil {
 		os.Exit(1)
 	}
