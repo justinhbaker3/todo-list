@@ -4,16 +4,16 @@ import (
 	"time"
 )
 
-// item defines an item in a list
-type item struct {
+// Item defines an Item in a list
+type Item struct {
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
 	TimeOpened  time.Time `json:"time_opened"`
 }
 
-// New creates a new item
-func NewItem(title, description string) *item {
-	return &item{
+// New creates a new Item
+func NewItem(title, description string) *Item {
+	return &Item{
 		Title:       title,
 		Description: description,
 		TimeOpened:  time.Now().UTC(),
