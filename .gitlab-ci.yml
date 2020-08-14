@@ -5,10 +5,10 @@ Test:
   image: golang:1.14
   stage: test-and-build
   script:
-    - make test
+    - go test ./...
 
 Build:
   image: docker:stable
   stage: test-and-build
   script:
-    - make image
+    - go build -mod vendor github.com/$(NAMESPACE)/$(APPNAME)/cmd/todo-list
