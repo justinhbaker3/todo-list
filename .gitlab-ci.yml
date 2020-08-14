@@ -2,11 +2,13 @@ stages:
   - test-and-build
 
 Test:
+  image: golang:1.14
   stage: test-and-build
   script:
     - make test
 
 Build:
+  image: docker:stable
   stage: test-and-build
   script:
     - make image
