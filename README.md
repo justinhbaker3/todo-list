@@ -47,7 +47,7 @@ Create image:
 `make image` or `docker build -t justinhbaker3/todo-list .`
 
 Run container:
-`make run-docker` or `docker run -p 8080:8080 justinhbaker3/todo-list`
+`make docker-run` or `docker run -p 8080:8080 justinhbaker3/todo-list`
 
 ### MYSQL
 Build image:

@@ -1,0 +1,12 @@
+stages:
+  - test-and-build
+
+Test:
+  stage: test-and-build
+  script:
+    - make test
+
+Build:
+  stage: test-and-build
+  script:
+    - make image

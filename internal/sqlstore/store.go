@@ -55,13 +55,13 @@ func (c *Client) Get(title string) (*list.List, error) {
 }
 
 func (c *Client) Upsert(list *list.List) {
-	insertList := `INSERT INTO lists (title) values ("?")
+	insertList := `INSERT INTO lists (title) values (?)
 					ON DUPLICATE KEY UPDATE title=?`
 	insertItem := `INSERT INTO items (title, description, list)
 					values ("?", "?", ?)
 					ON DUPLICATE KEY UPDATE title = VALUES(title), description = VALUES(description), list = VALUES(list)`
 
-	res, _ := c.db.Exec(insertList, list.Title)
+	res, _ := c.db.Exec(insertList, list.Title, list.Title)
 	listID, _ := res.LastInsertId()
 
 	for _, item := range list.Items {
