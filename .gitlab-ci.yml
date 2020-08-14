@@ -11,4 +11,4 @@ Build:
   image: docker:stable
   stage: test-and-build
   script:
-    - go build -mod vendor github.com/$(NAMESPACE)/$(APPNAME)/cmd/todo-list
+    - go build -mod vendor github.com/justinhbaker3/todo-list/cmd/todo-list
