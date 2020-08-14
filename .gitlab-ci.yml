@@ -9,6 +9,8 @@ Test:
 
 Build:
   image: docker:stable
+  services:
+    - docker:dind
   stage: test-and-build
   script:
     - docker build -t justinhbaker3/todo-list .
