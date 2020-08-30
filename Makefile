@@ -5,6 +5,10 @@ APPNAME = todo-list
 build:
 	go build -mod vendor github.com/$(NAMESPACE)/$(APPNAME)/cmd/todo-list
 
+.PHONY: test
+test:
+	go test -v ./...
+
 .PHONY: clean
 clean:
 	-rm todo-list
@@ -16,3 +20,15 @@ image:
 .PHONY: docker-run
 docker-run:
 	docker run -p 8080:8080 $(NAMESPACE)/$(APPNAME)
+
+.PHONY: build-mysql
+build-mysql:
+	docker build -t $(NAMESPACE)/$(APPNAME)-mysql ./mysql
+
+.PHONY: run-mysql
+run-mysql:
+	docker run --rm --name $(APPNAME)-mysql -p 3306:3306 -d $(NAMESPACE)/$(APPNAME)-mysql
+
+.PHONY: stop-mysql
+stop-mysql:
+	docker stop $(APPNAME)-mysql

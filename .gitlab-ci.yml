@@ -1,0 +1,16 @@
+stages:
+  - test-and-build
+
+Test:
+  image: golang:1.14
+  stage: test-and-build
+  script:
+    - go test -v ./...
+
+Build:
+  image: docker:stable
+  services:
+    - docker:dind
+  stage: test-and-build
+  script:
+    - docker build -t justinhbaker3/todo-list .
