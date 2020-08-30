@@ -5,6 +5,10 @@ APPNAME = todo-list
 build:
 	go build -mod vendor github.com/$(NAMESPACE)/$(APPNAME)/cmd/todo-list
 
+.PHONY: test
+test:
+	go test -v ./...
+
 .PHONY: clean
 clean:
 	-rm todo-list
